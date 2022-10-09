@@ -80,8 +80,12 @@ export default {
     sortedValutes() {
       return this.valuteList.filter(
         (item) =>
-          item.Name.includes(this.searchingValute) ||
-          item.CharCode.includes(this.searchingValute)
+          item.Name.toLowerCase().includes(
+            this.searchingValute.toLowerCase()
+          ) ||
+          item.CharCode.toLowerCase().includes(
+            this.searchingValute.toLowerCase()
+          )
       );
     },
   },
@@ -119,7 +123,7 @@ export default {
   }
   .valute-search {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 10px auto;
   }
   .valute-list-item {
     display: inline-block;

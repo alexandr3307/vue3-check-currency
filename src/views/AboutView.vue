@@ -11,7 +11,6 @@
           placeholder="Количество"
         ></my-input>
         <MySelectDropdown
-          v-if="valuteList"
           v-model="currentVal"
           placeholder="Валюта"
           class="converter__dropdown"
@@ -32,7 +31,6 @@
           {{ calculateValute }}
         </div>
         <MySelectDropdown
-          v-if="valuteList"
           v-model="searchingVal"
           placeholder="Валюта"
           class="converter__dropdown"
@@ -94,6 +92,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   @media (min-width: 991px) {
     flex-direction: row;
   }
