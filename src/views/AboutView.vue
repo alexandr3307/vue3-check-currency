@@ -19,12 +19,7 @@
         />
       </div>
       <div class="converter-item">
-        <img
-          :src="swap"
-          alt="swap"
-          class="converter__swap"
-          @click="reverseValutes(valute)"
-        />
+        <swap-icon @click="reverseValutes" />
       </div>
       <div class="converter-item">
         <div class="converter__value">
@@ -47,9 +42,10 @@
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import MyInput from "@/components/custom/MyInput";
 import MySelectDropdown from "@/components/custom/MySelectDropdown";
+import SwapIcon from "@/components/SwapIcon";
 export default {
   name: "HomeView",
-  components: { MySelectDropdown, MyInput },
+  components: { SwapIcon, MySelectDropdown, MyInput },
   data() {
     return {
       arrow: require("@/assets/arrow-down_icon.svg"),
@@ -103,15 +99,6 @@ export default {
   }
   &__dropdown {
     width: 300px;
-  }
-  &__swap {
-    width: 20px;
-    cursor: pointer;
-    margin: 0 20px;
-    transition: all ease-in-out 0.3s;
-    &:active {
-      transform: rotate(360deg);
-    }
   }
   &__input {
     max-width: 150px;
