@@ -12,7 +12,7 @@
         placeholder="Поиск по коду или названию валюты"
       ></my-input>
     </div>
-    <div class="valute-list">
+    <div class="valute-list" v-if="valuteList">
       <transition-group name="valute-list">
         <div
           class="valute-item"
@@ -24,7 +24,12 @@
             <div class="valute-item__content-change">
               <div v-if="!valute.reversed">1 RUB</div>
               <div v-else>1 {{ valute.CharCode }}</div>
-              <img :src="swap" alt="swap" @click="reverseValutes(valute)" />
+              <img
+                class="valute-item__content-change__swap"
+                :src="swap"
+                alt="swap"
+                @click="reverseValutes(valute)"
+              />
               <div v-if="!valute.reversed">
                 {{ valute.Value }} {{ valute.CharCode }}
               </div>
@@ -101,7 +106,6 @@ export default {
 <style lang="scss" scoped>
 .home {
   padding: 15px;
-  transition: all 0.3s;
   max-width: 1000px;
   margin: 0 auto;
   .valute-date {
@@ -151,9 +155,14 @@ export default {
         margin: 5px auto;
         &-change {
           display: flex;
-          img {
+          &__swap {
             width: 20px;
-            margin: 0 10px;
+            cursor: pointer;
+            margin: 0 20px;
+            transition: all ease-in-out 0.3s;
+            &:active {
+              transform: rotate(360deg);
+            }
           }
         }
         &-difference {
