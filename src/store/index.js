@@ -24,8 +24,8 @@ export default createStore({
         const response = await axios.get(
           "https://www.cbr-xml-daily.ru/daily_json.js"
         );
-        commit("setValuteList", response.data.Valute);
-        commit("setLastUpdateDate", response.data.Date);
+        commit("setValuteList", Object.values(response.data.Valute));
+        commit("setLastUpdateDate", response.data.Date.split("T")[0]);
       } catch (e) {
         console.log(e);
       }
