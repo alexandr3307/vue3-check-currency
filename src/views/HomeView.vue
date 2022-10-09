@@ -1,20 +1,31 @@
 <template>
-  <h2 class="home" @click="showList">
-    Посмотреть весь список пар валют с переключением основной валюты
-  </h2>
-  <span>Последняя дата обновления: {{ lastUpdateDate }}</span>
-  <div>
-    <div v-for="valute in valuteList" :key="valute.ID">
-      <div>{{ valute.Name }}</div>
-      <div>
+  <div class="home">
+    <h2 @click="showList">
+      Посмотреть весь список пар валют с переключением основной валюты
+    </h2>
+    <span>Последняя дата обновления: {{ lastUpdateDate }}</span>
+    <div class="valute-list">
+      <div
+        class="valute-item"
+        v-for="valute in valuteList"
+        :key="valute.CharCode"
+      >
+        <div>{{ valute.Name }}</div>
         <div>
-          <div>1 RUB</div>
-          <div>{{ valute.Value }} {{ valute.CharCode }}</div>
-        </div>
-        <div
-          :class="getDifferenceBackgroundColor(valute.Value, valute.Previous)"
-        >
-          {{ getDifference(valute.Value, valute.Previous) }}
+          <div>
+            <div v-if="!valute.reversed">1 RUB</div>
+            <div v-else>1 {{ valute.CharCode }}</div>
+            <div @click="reverseValutes(valute)">CHANGE</div>
+            <div v-if="!valute.reversed">
+              {{ valute.Value }} {{ valute.CharCode }}
+            </div>
+            <div v-else>{{ (1 / valute.Value).toFixed(4) }} RUB</div>
+          </div>
+          <div
+            :class="getDifferenceBackgroundColor(valute.Value, valute.Previous)"
+          >
+            {{ getDifference(valute.Value, valute.Previous) }}
+          </div>
         </div>
       </div>
     </div>
@@ -28,7 +39,7 @@ export default {
   name: "HomeView",
   data() {
     return {
-      current: "",
+      currentVal: [],
     };
   },
   computed: {
@@ -39,6 +50,7 @@ export default {
   },
   methods: {
     ...mapActions(["fetchValuteList"]),
+    ...mapMutations(["changeOneField"]),
     showList() {
       console.log(this.valuteList);
     },
@@ -48,17 +60,22 @@ export default {
     getDifferenceBackgroundColor(val, prevVal) {
       return val - prevVal > 0 ? "green" : "red";
     },
+    reverseValutes(valute) {
+      !valute.reversed ? (valute.reversed = true) : (valute.reversed = false);
+    },
   },
   mounted() {
     this.fetchValuteList();
   },
 };
 </script>
-<style scoped>
-.red {
-  background: red;
-}
-.green {
-  background: green;
+<style lang="scss" scoped>
+.home {
+  .red {
+    background: red;
+  }
+  .green {
+    background: green;
+  }
 }
 </style>

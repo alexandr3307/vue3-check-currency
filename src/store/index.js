@@ -14,6 +14,9 @@ export default createStore({
     setLastUpdateDate(state, lastUpdateDate) {
       state.lastUpdateDate = lastUpdateDate;
     },
+    changeOneField(state, item, id) {
+      state.valuteList[id] = item;
+    },
   },
   actions: {
     async fetchValuteList({ commit }) {
@@ -21,8 +24,6 @@ export default createStore({
         const response = await axios.get(
           "https://www.cbr-xml-daily.ru/daily_json.js"
         );
-        console.log(response.data);
-        const data = response.data.
         commit("setValuteList", response.data.Valute);
         commit("setLastUpdateDate", response.data.Date);
       } catch (e) {
