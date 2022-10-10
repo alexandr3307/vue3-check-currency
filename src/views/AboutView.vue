@@ -15,6 +15,7 @@
           placeholder="Валюта"
           class="converter__dropdown"
           title-key="Name"
+          :value="currentVal"
           :items="valuteList"
         />
       </div>
@@ -28,6 +29,7 @@
         <MySelectDropdown
           v-model="searchingVal"
           placeholder="Валюта"
+          :value="searchingVal"
           class="converter__dropdown"
           title-key="Name"
           :items="valuteList"
@@ -71,7 +73,6 @@ export default {
   },
   methods: {
     ...mapActions(["fetchValuteList"]),
-    ...mapMutations(["changeOneField"]),
     reverseValutes() {
       const reverse = this.currentVal;
       this.currentVal = this.searchingVal;
@@ -98,7 +99,7 @@ export default {
     align-items: center;
   }
   &__dropdown {
-    width: 300px;
+    width: 200px;
   }
   &__input {
     max-width: 150px;

@@ -57,10 +57,7 @@ export default {
       state: false,
       list: [],
       selectedItem: null,
-
-      // search
       deBounceTimeout: null,
-      deBounce: 450,
       searchString: "",
       focusSearch: false,
     };
@@ -102,7 +99,7 @@ export default {
   },
   mounted() {
     this.list = this.items;
-    console.log(this.items);
+    console.log("items", this.items);
   },
   methods: {
     selectItem(item) {
