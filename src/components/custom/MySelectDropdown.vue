@@ -99,7 +99,6 @@ export default {
   },
   mounted() {
     this.list = this.items;
-    console.log("items", this.items);
   },
   methods: {
     selectItem(item) {
